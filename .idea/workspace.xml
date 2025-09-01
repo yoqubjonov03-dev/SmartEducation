@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4b2f33a-546d-4aed-b0f4-56d49163b28e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/users_app/tests/test_teacher.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart_education_db_structure.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/smart_education_db_structure.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_app/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/tests/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/tests/test_student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher_app/views.py" beforeDir="false" />
-    </list>
+    <list default="true" id="b4b2f33a-546d-4aed-b0f4-56d49163b28e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
