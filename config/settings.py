@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'teacher_app',
-    'student_app',
+    'users_app',
 
     'rest_framework',
     'drf_yasg',
