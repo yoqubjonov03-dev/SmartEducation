@@ -1,3 +1,4 @@
+import django_filters
 from rest_framework import serializers
 from users_app.models import TeacherProfil, StudentProfil
 
@@ -12,3 +13,4 @@ class TeacherProfilSerializers(serializers.ModelSerializer):
     class Meta:
         model=TeacherProfil
         fields = '__all__'
+

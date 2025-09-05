@@ -27,9 +27,20 @@ class Courses(models.Model):
 
 class Groups(models.Model):
     """Gruhlar yaratish uchun"""
+    PENDING = 'Pending'
+    ACTIVE = 'active'
+    COMPLETED = 'completed'
+
+
+    STATUS_CHOICES = [
+        (PENDING, 'Pending'),
+        (ACTIVE, 'Active'),
+        (COMPLETED, 'Completed'),
+    ]
     course_id = models.ForeignKey(Courses, on_delete=models.CASCADE)
     teacher_id = models.ForeignKey(TeacherProfil, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    status = models.CharField(max_length=25, choices=STATUS_CHOICES, default='Pending')
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -43,11 +54,11 @@ class Enrollments(models.Model):
     """Guruhga talaba royhatdan otish uchun"""
     ACTIVE = 'active'
     COMPLETED = 'completed'
-    CANCELLED = 'canceled'
+    CANCELED = 'canceled'
     STATUS_CHOICES = [
         (ACTIVE, 'Active'),
         (COMPLETED, 'Completed'),
-        (CANCELLED, 'Cancelled')
+        (CANCELED, 'Cancelled')
     ]
 
     student_id = models.ForeignKey(StudentProfil, on_delete=models.CASCADE)

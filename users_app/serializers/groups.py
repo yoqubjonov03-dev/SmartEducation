@@ -19,7 +19,7 @@ class GroupsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Groups
-        fields = ['id', 'name','course_id','teacher_id', 'start_date', 'end_date', 'teacher_name', 'student_count', 'start_date', 'end_date', ]
+        fields = ['id', 'name','course_id','teacher_id', 'status','start_date', 'end_date', 'teacher_name', 'student_count', 'start_date', 'end_date', ]
 
     def get_student_count(self, obj):
         return Enrollments.objects.filter(group_id=obj, status=Enrollments.ACTIVE).count()
