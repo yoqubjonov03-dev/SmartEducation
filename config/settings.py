@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users_app',
+    'billing',
+
 
     'rest_framework',
     'drf_yasg',
@@ -161,3 +163,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+
