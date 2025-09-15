@@ -13,6 +13,8 @@ class Schedules(models.Model):
         return f"{self.group_id.name}, {self.start_day}"
 
 
+
+
 class DaySchedules(models.Model):
     MONDAY = 'Monday'
     TUESDAY = 'Tuesday'

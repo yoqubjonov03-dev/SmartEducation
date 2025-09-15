@@ -10,18 +10,18 @@ from users_app.filters import GroupsFilter, CoursesFilter
 from rest_framework import filters
 from users_app.paginations import CustomPagination
 
-
+from users_app.permissions import IsTeachersStudentsGroup,IsAdminIsStaff
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 class CoursesViewSet(viewsets.ModelViewSet):
     queryset = Courses.objects.all()
     serializer_class = CoursesSerializer
 
+    permission_classes = [ IsAdminIsStaff]
     filter_backends = [django_filters.DjangoFilterBackend, filters.SearchFilter]
     filterset_class = CoursesFilter
-    search_fields = ['name','description']
-
-
+    search_fields = ['name', 'description']
 
     @swagger_auto_schema(manual_parameters=[
         openapi.Parameter('min_price', openapi.IN_QUERY, description="min price", type=openapi.TYPE_NUMBER),
@@ -30,9 +30,11 @@ class CoursesViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+
 class GroupsViewSet(viewsets.ModelViewSet):
-    queryset = Groups.objects.all()
+    queryset = Groups.objects.all().order_by('id')
     serializer_class = GroupsSerializer
+    permission_classes = [IsAuthenticated, IsTeachersStudentsGroup]
 
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = GroupsFilter
@@ -46,8 +48,12 @@ class GroupsViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+
+
 class EnrollmentsViewSet(viewsets.ModelViewSet):
-    queryset = Enrollments.objects.all()
+    queryset = Enrollments.objects.all().order_by('id')
     serializer_class = EnrollmentsSerializer
 
+    permission_classes = [IsAuthenticated, IsAdminUser]
     pagination_class = CustomPagination
+

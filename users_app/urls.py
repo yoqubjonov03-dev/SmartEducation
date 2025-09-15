@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-
+from billing.views import PaymentViewSet
 from users_app import views
 
 
 
 
 router = DefaultRouter()
+router.register(r'Payment', PaymentViewSet)
 router.register(r'TeacherProfil', views.TeacherProfilViewSet)
 router.register(r'StudentProfil', views.StudentProfilViewSet)
 router.register(r'Courses', views.CoursesViewSet)

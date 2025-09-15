@@ -31,4 +31,14 @@ class GroupsSerializer(serializers.ModelSerializer):
 class EnrollmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Enrollments
-        fields = ['student_id', 'group_id', 'enrollment_date', 'status']
+        fields = ['id','student_id', 'group_id', 'enrollment_date', 'status']
+
+    def validate(self, attrs):
+        """bir user bita guruda birmarta boladi """
+        student = attrs.get('student_id')
+        group = attrs.get('group_id')
+        if Enrollments.objects.filter(student=student, group=group).exists():
+            raise serializers.ValidationError("Bu student allaqachon ushbu guruhga qo‘shilgan.")
+        return attrs
+
+

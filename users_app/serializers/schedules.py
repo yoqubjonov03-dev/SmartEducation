@@ -22,3 +22,6 @@ class DaySchedulesSerializer(serializers.ModelSerializer):
 
     def get_group_name(self, obj):
         return obj.schedule_id.group_id.name
+
+
+

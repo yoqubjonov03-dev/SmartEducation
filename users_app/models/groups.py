@@ -47,7 +47,7 @@ class Groups(models.Model):
     update_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.course_id.name}, {self.teacher_id.user.get_full_name()}"
+        return f"{self.course_id.name}-{self.name}: {self.teacher_id.user.get_full_name()}"
 
 
 class Enrollments(models.Model):
@@ -65,6 +65,12 @@ class Enrollments(models.Model):
     group_id = models.ForeignKey(Groups, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now=True)
     status = models.CharField(max_length=25, choices=STATUS_CHOICES, default=ACTIVE)
+    is_paid = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return f"{self.student_id.user.get_full_name()} - {self.group_id.name}"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['student_id', 'group_id'], name='unique_student_group')
+        ]
