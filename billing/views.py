@@ -22,8 +22,8 @@ class CreatePaymentIntent(APIView):
 
     def post(self, request, *args, **kwargs):
         payment_method = 'Card'
-        stripe_token = request.date.get('stripe_token')
-        enrollment_id = request.date.get('enrollment_id')
+        stripe_token = request.data.get('stripe_token')
+        enrollment_id = request.data.get('enrollment_id')
 
         try:
             enrollment = Enrollments.objects.get(id=enrollment_id)
@@ -34,18 +34,18 @@ class CreatePaymentIntent(APIView):
             total_amount = enrollment.group_id.course_id.price
             charge = stripe.Charge.create(
                 amount=int(total_amount),
-                currency="uzs",
+                currency="usd",
                 source=stripe_token,
             )
             Payments.objects.create(
-                enrollment_id=enrollment_id,
+                enrollment_id=enrollment,
                 stripe_charge_id=charge['id'],
                 amount=total_amount,
                 payment_method=payment_method,
 
             )
             enrollment.is_paid = True
-            enrollment.seve()
+            enrollment.save()
 
 
             return Response({"status": "Payment successful"}, status=status.HTTP_200_OK)

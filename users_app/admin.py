@@ -8,7 +8,7 @@ from .models import TeacherProfil, StudentProfil, Courses, Groups, Enrollments, 
 # admin.site.register(TeacherProfil)
 @admin.register(TeacherProfil)
 class TeacherProfilAdmin(admin.ModelAdmin):
-    list_display = ('id','user__first_name', 'specialty', 'experience_years', 'phone_number')
+    list_display = ('id','user__id','user__first_name', 'specialty', 'experience_years', 'phone_number')
     search_fields = ('user__first_name', 'user__last_name', 'parent_name')
 
 
@@ -32,7 +32,7 @@ class GroupsAdmin(admin.ModelAdmin):
 
 @admin.register(Enrollments)
 class EnrollmentsAdmin(admin.ModelAdmin):
-    list_display = ('student_id__id','full_name', 'group_id__name', 'status')
+    list_display = ('id','student_id__id','full_name', 'group_id__name', 'status')
     search_fields = ('full_name', 'group_id__name')
 
     def full_name(self, obj):

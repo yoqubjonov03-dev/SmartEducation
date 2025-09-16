@@ -5,27 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4b2f33a-546d-4aed-b0f4-56d49163b28e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/billing/permissions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/billing/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/billing/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users_app/permissions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users_app/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/billing/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/billing/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/billing/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/billing/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/billing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/billing/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart_education_db_structure.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/smart_education_db_structure.drawio" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/models/groups.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/models/groups.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/models/schedules.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/models/schedules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/serializers/groups.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/serializers/groups.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/serializers/schedules.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/serializers/schedules.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/views/groups.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/views/groups.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/views/schedules.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/views/schedules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_app/views/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/views/users.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,19 +36,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Notification.DisplayName-DoNotAsk-Execution": "External process execution failed",
-    "Notification.DoNotAsk-Execution": "true",
-    "Python tests.Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_list.executor": "Run",
-    "Python tests.Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_update.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Notification.DisplayName-DoNotAsk-Execution&quot;: &quot;External process execution failed&quot;,
+    &quot;Notification.DoNotAsk-Execution&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_list.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_update.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python tests.Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_update">
     <configuration name="Python tests for student_app.tests.StudentProfilTestCase.test_studentprofil_list" type="tests" factoryName="Autodetect" nameIsGenerated="true">
       <module name="SmartEducation" />
@@ -112,5 +98,16 @@
       <updated>1753289917303</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
