@@ -21,7 +21,7 @@ jobs:
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
         options: >-
-          --health-cmd "pg_isready -U ${{ secrets.DB_USER }}"
+          --health-cmd "pg_isready -U SmartEducation_admin"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -73,7 +73,7 @@ jobs:
 
       - name: Wait for Postgres
         run: |
-          until pg_isready -h localhost -U ${{ env.DB_USER }}; do
+          until pg_isready -h localhost -U ${{ secriteDB_USER }}; do
             echo "Waiting for Postgres..."
             sleep 2
           done
@@ -85,7 +85,7 @@ jobs:
         run: celery -A config worker --loglevel=info &
         env:
           CELERY_BROKER_URL: ${{ env.CELERY_BROKER_URL }}
-          CELERY_RESULT_BACKEND: ${{ env.CELERY_RESULT_BACKEND }}
+          CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
 
       - name: Run tests
         run: python manage.py test
