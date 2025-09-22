@@ -1,5 +1,5 @@
 
-name: Django CI with Celery, Redis & RabbitMQ
+name: Django CI/CD with Celery, Postgres, Redis & RabbitMQ
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     services:
@@ -18,8 +18,10 @@ jobs:
           POSTGRES_DB: ${{ secrets.DB_NAME }}
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U SmartEducation_admin"
+          --health-cmd "pg_isready -U ${{ secrets.DB_USER }}"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -31,8 +33,8 @@ jobs:
       rabbitmq:
         image: rabbitmq:3-management
         env:
-          RABBITMQ_DEFAULT_USER: guest
-          RABBITMQ_DEFAULT_PASS: guest
+          RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_USER }}
+          RABBITMQ_DEFAULT_PASS: ${{ secrets.RABBITMQ_PASS }}
         ports:
           - 5672:5672
           - 15672:15672
@@ -48,13 +50,14 @@ jobs:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
       CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
-      CELERY_TASK_ALWAYS_EAGER: "False"  # real Celery worker ishlaydi
+      CELERY_TASK_ALWAYS_EAGER: "False"  # real worker ishlaydi
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
@@ -76,7 +79,7 @@ jobs:
             sleep 2
           done
 
-      - name: Run migrations
+      - name: Run Django migrations
         run: python manage.py migrate
 
       - name: Start Celery worker
@@ -84,6 +87,9 @@ jobs:
         env:
           CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
           CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
+
+      - name: Load fixture data
+        run: python manage.py loaddata users_app/fixtures/your_fixture.yaml
 
       - name: Run tests
         run: python manage.py test
