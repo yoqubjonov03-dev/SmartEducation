@@ -69,11 +69,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Wait for Postgres
-        run: |
-          until pg_isready -h localhost -U SmartEducation_admin; do
-            echo "Waiting for Postgres..."
-            sleep 2
-          done
+        run: node client.js
+#        run: |
+#          until pg_isready -h localhost -U SmartEducation_admin; do
+#            echo "Waiting for Postgres..."
+#            sleep 2
+#          done
 
       - name: Run migrations
         run: python manage.py migrate
