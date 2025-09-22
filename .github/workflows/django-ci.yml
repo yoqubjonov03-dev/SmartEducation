@@ -74,7 +74,7 @@ jobs:
 
       - name: Wait for Postgres
         run: |
-          until pg_isready -h localhost -U ${{ secrets.DB_USER }}; do
+          until pg_isready ; do
             echo "Waiting for Postgres..."
             sleep 2
           done
@@ -84,9 +84,7 @@ jobs:
 
       - name: Start Celery worker
         run: celery -A config worker --loglevel=info &
-        env:
-          CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-          CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
+
 
       - name: Load fixture data
         run: python manage.py loaddata users_app/fixtures/your_fixture.yaml
