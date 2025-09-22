@@ -1,5 +1,7 @@
 
-name: Django CI/CD with Celery, Postgres, Redis & RabbitMQ
+
+
+name: Django CI with Celery, Redis & RabbitMQ
 
 on:
   push:
@@ -8,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     services:
@@ -18,8 +20,6 @@ jobs:
           POSTGRES_DB: ${{ secrets.DB_NAME }}
           POSTGRES_USER: ${{ secrets.DB_USER }}
           POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        ports:
-          - 5432:5432
         options: >-
           --health-cmd "pg_isready -U ${{ secrets.DB_USER }}"
           --health-interval 10s
@@ -33,32 +33,30 @@ jobs:
       rabbitmq:
         image: rabbitmq:3-management
         env:
-          RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_USER }}
-          RABBITMQ_DEFAULT_PASS: ${{ secrets.RABBITMQ_PASS }}
+          RABBITMQ_DEFAULT_USER: guest
+          RABBITMQ_DEFAULT_PASS: guest
         ports:
           - 5672:5672
           - 15672:15672
 
     env:
-
       DEBUG: ${{ secrets.DEBUG }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      CELERY_BROKER_URL: redis://localhost:6379/0
+      CELERY_RESULT_BACKEND: redis://localhost:6379/0
       STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
-      CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND }}
-      CELERY_TASK_ALWAYS_EAGER: "False"  # real worker ishlaydi
+      CELERY_TASK_ALWAYS_EAGER: "True"  # Celery testlarda synchronous ishlaydi
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
         with:
           python-version: 3.11
 
@@ -75,113 +73,22 @@ jobs:
 
       - name: Wait for Postgres
         run: |
-          until pg_isready ; do
+          until pg_isready -h localhost -U ${{ env.DB_USER }}; do
             echo "Waiting for Postgres..."
             sleep 2
           done
 
-      - name: Run Django migrations
+      - name: Run migrations
         run: python manage.py migrate
 
       - name: Start Celery worker
         run: celery -A config worker --loglevel=info &
-
-
-      - name: Load fixture data
-        run: python manage.py loaddata users_app/fixtures/your_fixture.yaml
+        env:
+          CELERY_BROKER_URL: ${{ env.CELERY_BROKER_URL }}
+          CELERY_RESULT_BACKEND: ${{ env.CELERY_RESULT_BACKEND }}
 
       - name: Run tests
         run: python manage.py test
-
-
-#name: Django CI with Celery, Redis & RabbitMQ
-#
-#on:
-#  push:
-#    branches: [ main ]
-#  pull_request:
-#    branches: [ main ]
-#
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#
-#    services:
-#      postgres:
-#        image: postgres:15
-#        env:
-#          POSTGRES_DB: ${{ secrets.DB_NAME }}
-#          POSTGRES_USER: ${{ secrets.DB_USER }}
-#          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-#        options: >-
-#          --health-cmd "pg_isready -U ${{ secrets.DB_USER }}"
-#          --health-interval 10s
-#          --health-timeout 5s
-#          --health-retries 5
-#
-#      redis:
-#        image: redis:7
-#        ports: ["6379:6379"]
-#
-#      rabbitmq:
-#        image: rabbitmq:3-management
-#        env:
-#          RABBITMQ_DEFAULT_USER: guest
-#          RABBITMQ_DEFAULT_PASS: guest
-#        ports:
-#          - 5672:5672
-#          - 15672:15672
-#
-#    env:
-#      DEBUG: ${{ secrets.DEBUG }}
-#      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-#      DB_NAME: ${{ secrets.DB_NAME }}
-#      DB_USER: ${{ secrets.DB_USER }}
-#      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-#      CELERY_BROKER_URL: redis://localhost:6379/0
-#      CELERY_RESULT_BACKEND: redis://localhost:6379/0
-#      STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
-#      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-#      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-#      CELERY_TASK_ALWAYS_EAGER: "True"  # Celery testlarda synchronous ishlaydi
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Set up Python 3.11
-#        uses: actions/setup-python@v2
-#        with:
-#          python-version: 3.11
-#
-#      - name: Cache pip
-#        uses: actions/cache@v3
-#        with:
-#          path: ~/.cache/pip
-#          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-#
-#      - name: Install dependencies
-#        run: |
-#          python -m pip install --upgrade pip
-#          pip install -r requirements.txt
-#
-#      - name: Wait for Postgres
-#        run: |
-#          until pg_isready -h localhost -U ${{ env.DB_USER }}; do
-#            echo "Waiting for Postgres..."
-#            sleep 2
-#          done
-#
-#      - name: Run migrations
-#        run: python manage.py migrate
-#
-#      - name: Start Celery worker
-#          run: celery -A config worker --loglevel=info &
-#          env:
-#            CELERY_BROKER_URL: ${{ env.CELERY_BROKER_URL }}
-#            CELERY_RESULT_BACKEND: ${{ env.CELERY_RESULT_BACKEND }}
-#
-#      - name: Run tests
-#        run: python manage.py test
 
 
 
