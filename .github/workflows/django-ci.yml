@@ -40,6 +40,7 @@ jobs:
           - 15672:15672
 
     env:
+
       DEBUG: ${{ secrets.DEBUG }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DB_NAME: ${{ secrets.DB_NAME }}
