@@ -33,7 +33,7 @@ class CoursesViewSet(viewsets.ModelViewSet):
 
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = Groups.objects.all().order_by('id')
-    serializer_class = GroupsSerializer
+    # serializer_class = GroupsSerializer
     permission_classes = [IsAuthenticated, IsTeachersStudentsGroup]
 
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
