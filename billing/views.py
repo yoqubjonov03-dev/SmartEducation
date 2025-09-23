@@ -21,6 +21,9 @@ class CreatePaymentIntent(APIView):
 
 
     def post(self, request, *args, **kwargs):
+
+
+
         payment_method = 'Card'
         stripe_token = request.data.get('stripe_token')
         enrollment_id = request.data.get('enrollment_id')
