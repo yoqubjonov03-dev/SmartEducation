@@ -8,7 +8,7 @@ from celery import shared_task
 def send_telegram_notification(payment_id, enrollment_id, amount, payment_method):
     time.sleep(5)
     token = settings.TELEGRAM_BOT_TOKEN
-    chat_id = 5145991019
+    chat_id = settings.TELEGRAM_CHAT_ID
     url = f'https://api.telegram.org/bot{token}/sendMessage'
 
     message_text = (f"New Payment: {payment_id}\nEnrolment: {enrollment_id}\n"
