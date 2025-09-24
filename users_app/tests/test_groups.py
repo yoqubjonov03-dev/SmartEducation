@@ -153,6 +153,8 @@ class EnrollmentsTests(APITestCase):
 
         )
 
+
+
     def test_enrollment_list(self):
         url = reverse('enrollments-list')
         self.client.force_authenticate(self.staff_user)
